@@ -1,0 +1,24 @@
+/* .ant-upload-select-picture-card i {
+    font-size: 32px;
+    color: #999;
+  }
+  
+  .ant-upload-select-picture-card .ant-upload-text {
+    margin-top: 8px;
+    color: #666;
+  } */
+
+  input[type='file']::-webkit-file-upload-button
+  {
+    size: 50px;
+  }
+  .imageSize{
+    width: 120%;
+    margin: 10%;
+  }
+  .imgBaseDiv{
+    width: 90%;
+    height: 90%;
+    overflow: hidden;
+    border-radius: 5px;
+  }
