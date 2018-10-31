@@ -4,6 +4,7 @@ import { Upload, Icon, Modal } from "antd";
 import "antd/dist/antd.css";
 import db from "../../config/firebase";
 import * as firebase from "firebase";
+import MenuAppBar from '../../components/appBarSetPro';
 
 class SetProfile extends Component {
   constructor() {
@@ -16,7 +17,8 @@ class SetProfile extends Component {
       duration: [],
       localFile: null,
       imgList : [],
-      uploadProcess: false
+      uploadProcess: false,
+      pageName: 'Profile Setup'
     };
     this.uploadTOFireStore = this.uploadTOFireStore.bind(this);
   }
@@ -35,46 +37,54 @@ class SetProfile extends Component {
       uploadProcess,
       imgList,
       myId,
-      myName
+      myName,
+      pageName
     } = this.state;
 
     return (
       <div>
+        <MenuAppBar barName={pageName} />
         {pos == 1 && (
-          <div>
-            <h3>Set Profile</h3>
+          <div className="setProPos">
+            {/* <h3>Set Profile</h3> */}
+            <br />
             <input
               type="text"
+              className="input"
               placeholder="Enter Nick Name*"
               onChange={e => {
                 this.setState({ nickName: e.target.value });
               }}
-            />
+            /><br />
             <input
               type="number"
+              className="input"
               placeholder="Enter Contact*"
               onChange={e => {
                 this.setState({ contact: e.target.value });
               }}
-            />
+            /><br />
             <button
+                className="button"
               onClick={() => {
                 // this.setState({ pos: 2 });
                 var oa = overAll;
                 oa.nickName = nickName;
                 oa.contact = contact;
-                this.setState({ overAll: oa, pos: 2 });
+                this.setState({ overAll: oa, pos: 2,pageName: 'Add Images' });
                 console.log(overAll);
               }}
             >
               NEXT
             </button>
+
+
           </div>
         )}
         {pos == 2 && (
-          <div>
+          <div className="setProPos">
             <input
-              className="input"
+              // className="input"
               onChange={res => {
                 this.showImage(res);
               }}
@@ -126,14 +136,17 @@ class SetProfile extends Component {
                 </div>
               </div>
             )}
+            <br />
             <button
+              className="button"
               onClick={() => {
                 console.log(imageList);
                 this.uploadTOFireStore(imageList);
 
                 var oa = overAll;
                 // oa.imageList = imageList;
-                this.setState({ overAll: oa, pos: 3 });
+                this.setState({ overAll: oa, pos: 3,
+                 pageName: 'Select Beverages'});
                 console.log(overAll);
               }}
             >
@@ -142,15 +155,17 @@ class SetProfile extends Component {
           </div>
         )}
         {pos == 3 && (
-          <div>
-            <h3>Select Beverages</h3>
-            <input type="checkbox" name="baverages" value="cofee" /> Coffee
+          <div className="setProPos fontOfchkBock">
+          
+            <input type="checkbox" name="baverages" value="cofee" />
+             Coffee
             <br />
             <input type="checkbox" name="baverages" value="juice" /> Juice
             <br />
             <input type="checkbox" name="baverages" value="cocktail" /> Cocktail
             <br />
             <button
+             className="button"
               onClick={() => {
                 var bav = document.getElementsByName("baverages");
                 console.log(bav.length);
@@ -163,7 +178,8 @@ class SetProfile extends Component {
                 oa.baverages = baverages;
                 this.setState({ 
                   overAll: oa,
-                   pos: 4 
+                   pos: 4 ,
+                   pageName: 'Set Meeting Duration'
                   });
                 console.log(overAll);
               }}
@@ -174,15 +190,15 @@ class SetProfile extends Component {
           </div>
         )}
         {pos == 4 && (
-          <div>
-            <h3>Duration of meeting</h3>
+          <div className="setProPos fontOfchkBock">
+          
             <input type="checkbox" name="duration" value="20Min" /> 20 min
             <br />
             <input type="checkbox" name="duration" value="60Min" /> 60 min
             <br />
             <input type="checkbox" name="duration" value="120Min" /> 120 min
             <br />
-           {uploadProcess && <button
+           {uploadProcess && <button className="button"
               onClick={() => {
                 // this.setState({ pos: 4 });
                 var dur = document.getElementsByName("duration");
@@ -204,6 +220,7 @@ class SetProfile extends Component {
               NEXT
             </button>}
             {!uploadProcess && <button
+             className="button"
               onClick={() => {
                 alert("Let image uploading be complete first");
               }}
@@ -226,16 +243,40 @@ class SetProfile extends Component {
     console.log(overAll);
     db.collection('user').doc(myId).set(overAll,{merge: true}).then(res => {
       console.log('added to db');
+      db.collection('user').doc(myId).get().then(res => {
+        console.log(res.data());
+        localStorage.setItem('meetingAppUserData',JSON.stringify(res.data()));
+      })
       th.props.history.push('/setLocation');
     })
   }
   
   componentDidMount(){
+    const { myId } = this.state;
+    const th = this;
     if(!localStorage.getItem('meetingAppUserId') || !localStorage.getItem('meetingAppUserName')){
     this.props.history.push(`/`);
     }
     this.setState({myId: localStorage.getItem('meetingAppUserId')});
     this.setState({myName:localStorage.getItem('meetingAppUserName')});
+
+    if(localStorage.getItem('meetingAppUserId') && localStorage.getItem('meetingAppUserName') && localStorage.getItem('meetingAppUserData')){
+      var data = JSON.parse(localStorage.getItem('meetingAppUserData'));
+      if(data.imgList && data.nickName){
+        this.props.history.replace('/dashboard');
+      }
+    }
+    
+    // if(localStorage.getItem('meetingAppUserId') || localStorage.getItem('meetingAppUserName')){
+    //  var id = localStorage.getItem('meetingAppUserId');
+    //   db.collection("user").doc(id).get().then(res => {
+    //     console.log(res.data().imgList);
+    //     console.log(res.data().nickName);
+    //     if(res.data().imgList || res.data().nickName){
+    //       th.props.history.push('/dashboard');
+    //     }
+    //   })
+    
   }
 
   showImage(res) {
@@ -258,7 +299,9 @@ class SetProfile extends Component {
     reader.readAsDataURL(res.target.files[0]);
   }
   uploadTOFireStore(resp){
+    console.log(resp);
     const { myId } = this.state;
+    console.log(myId);
     const th = this;
 const arr = [];
 let uploadPromiseImgs = resp.map(function (pics, index) {
@@ -266,6 +309,7 @@ let uploadPromiseImgs = resp.map(function (pics, index) {
     var fbStorage = firebase.storage();
         return new Promise(function (resolve, reject) {
             var n = new Date().getTime();
+            debugger;
             var storageRef = fbStorage.ref('images/' + myId + '/'+ n + pic.name);
              var uploadTask = storageRef.put(pic);
             uploadTask.on('state_changed', null, null, function () {

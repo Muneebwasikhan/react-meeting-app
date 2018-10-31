@@ -1,0 +1,65 @@
+.divInside{
+    width: 100%;
+    height: 100%;
+    /* background-color: blue; */
+    border: 1px solid gray;
+}
+.cardImg{
+    background-color: black;
+}
+
+.imgProps{
+    display: block !important;
+    max-width: 1000% !important;
+    height: 100% !important;
+    position: relative !important;
+    left: -100% !important;
+}
+.master-root{
+    width: 500px;
+    height: 500px;
+    /* background-color: red; */
+    overflow: visible;
+}
+.slider-frame{
+    max-height: 350px;
+    /* background-color: white; */
+}
+
+.slider-control-centerright button{
+    height: inherit !important;
+    background-color: transparent !important;
+    width:  100% !important;
+    color: transparent !important;
+
+}
+.carousel-control:hover{
+    color: transparent;
+    background-color: transparent;
+    text-shadow: none;
+}
+.carousel-control{
+    /* display: none; */
+    color: transparent;
+    background-color: transparent;
+    text-shadow: none;
+    width: 30%;
+}
+.slider-control-centerright{
+    height: 100% !important;
+    width: 30% !important;
+}
+.slider-control-centerleft{
+    width: 30% !important;
+    height: 100% !important;
+}
+.slider-control-centerleft button{
+    height: inherit !important;
+    color: transparent !important;
+    width:  inherit !important;
+    background-color: transparent !important;
+}
+
+.flexbox{
+    display: flex;
+}

@@ -1,3 +1,6 @@
+.fontOfchkBock{
+  font-size: 20px;
+}
 /* .ant-upload-select-picture-card i {
     font-size: 32px;
     color: #999;
@@ -21,4 +24,38 @@
     height: 90%;
     overflow: hidden;
     border-radius: 5px;
+  }
+
+
+  .input{
+    font-size: 15px;
+    color: #1b3815 !important;
+    width: 80%;
+    height: 50px;
+    background: #ebebeb !important;
+    border-radius: 27px;
+    padding: 0 35px 0 35px;
+    margin: 5px 0px;
+    border-style: none;
+    max-width: 400px;
+    outline-style: none;
+  }
+  .setProPos{
+    position: fixed;
+    width: 100%;
+    bottom: 10%;
+  }
+
+  .button{
+    font-size: 15px;
+    color: white;
+    width: 80%;
+    height: 50px;
+    background: #3f51b5 !important;
+    border-radius: 27px;
+    padding: 0 35px 0 35px;
+    margin: 5px 0px;
+    border-style: none;
+    max-width: 400px;
+    outline-style: none;
   }

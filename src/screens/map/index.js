@@ -55,12 +55,14 @@ class Map extends Component {
    
     render() {
       const { coords } = this.state;
+      const th = this;
       return (
         <div className="App ">
          <button className="mapBtn" onClick={() => {
            const myId = localStorage.getItem('meetingAppUserId');
            db.collection('user').doc(myId).set({location: coords},{merge:true}).then(res => {
              console.log('added to db'); 
+             th.props.history.replace('/dashboard');
            });
           //  console.log(coords);
          }}>SELECT</button>

@@ -10,11 +10,11 @@ import ContainedButtons from '../../components/button'
 
 
 var provider = new firebase.auth.FacebookAuthProvider();
-provider.addScope('user_birthday');
-firebase.auth().languageCode = 'fr_FR';
-provider.setCustomParameters({
-  'display': 'popup'
-});
+// provider.addScope('user_birthday');
+// firebase.auth().languageCode = 'fr_FR';
+// provider.setCustomParameters({
+//   'display': 'popup'
+// });
 
 class Login extends Component {
     constructor(){
@@ -38,11 +38,12 @@ class Login extends Component {
 
 
 componentDidMount(){
-  if(localStorage.getItem('meetingAppUserId') || localStorage.getItem('meetingAppUserName')){
+  if(localStorage.getItem('meetingAppUserId') || localStorage.getItem('meetingAppUserName' )){
     
     this.props.history.push(`/setProfile`);
   }
 }
+
 
 login(){
   const th = this;
@@ -53,23 +54,32 @@ login(){
     var user = result.user;
     console.log(user);
     // console.log(db.collection("user").doc().get());
-    db.collection("user").doc(user.email).get().then(res => {
+    db.collection("user").doc(user.uid).get().then(res => {
       console.log(res.data());
       if(!res.data()){
-        db.collection("user").doc(user.email).set({
+        db.collection("user").doc(user.uid).set({
           name: user.displayName,
           email: user.email
         }).then(res => {
           console.log("added in db");
+          
+      localStorage.setItem("meetingAppUserId",user.uid);
+      localStorage.setItem("meetingAppUserName",user.displayName);
+      th.props.history.push(`/setProfile`);
         })
       }
       else{
         console.log("already present");
+        
+      localStorage.setItem("meetingAppUserId",user.uid);
+      localStorage.setItem("meetingAppUserName",user.displayName);
+      localStorage.setItem("meetingAppUserData",JSON.stringify(res.data()));
+      th.props.history.push(`/setProfile`);
       }
       
-      localStorage.setItem("meetingAppUserId",user.email);
-      localStorage.setItem("meetingAppUserName",user.displayName);
-      th.props.history.push(`/setProfile`);
+      return res;
+    }).then(resp => {
+      console.log(resp);
     })
   
   }).catch(function(error) {
