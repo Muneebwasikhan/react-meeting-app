@@ -9,6 +9,7 @@
     "axios": "^0.18.0",
     "firebase": "^5.5.4",
     "input-moment": "^0.4.0",
+    "mapbox-gl": "^0.50.0",
     "material-ui-icons": "^1.0.0-beta.36",
     "moment": "^2.22.2",
     "nuka-carousel": "^4.4.1",

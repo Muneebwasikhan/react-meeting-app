@@ -12,6 +12,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormGroup from '@material-ui/core/FormGroup';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
+import SwipeableTemporaryDrawer from '../swipableDrawer';
 
 const styles = {
   root: {
@@ -53,6 +54,7 @@ class MenuAppBar extends React.Component {
     return (
       <div className={classes.root}>
         
+         <SwipeableTemporaryDrawer />
         <AppBar position="static">
           <Toolbar>
             <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">

@@ -1,15 +1,21 @@
+
+
 .loginFbButton{
-    width: 90%;
-    height: 50px;
-    border-radius: 10px;
+    font-size: 15px;
     color: white;
-    background-color: #3f51b5;
-    position: fixed;
-    left: 5%;
-    bottom: 5%;
-    outline: none;
-    border: none; 
-}
+    width: 80%;
+    height: 50px;
+    background: #3f51b5 !important;
+    border-radius: 27px;
+    padding: 0 35px 0 35px;
+    margin: 5px 0px;
+    border-style: none;
+    max-width: 400px;
+    position: absolute;
+    left: 10%;
+    bottom: 10%;
+    outline-style: none;
+  }
 
 .backImg{
     background-image: url('https://images.pexels.com/photos/886465/pexels-photo-886465.jpeg?auto=compress&cs=tinysrgb&h=350');

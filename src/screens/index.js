@@ -4,6 +4,8 @@ import Map from './map';
 import Dashboard from './dashboard';
 import MeetingScreen from './meetingScreen';
 import MeetUpLoc from './meetUpLoc';
+import GetDirection from './getDirection';
+import GetDir from './getDir';
 
 export {
     Login,
@@ -11,5 +13,7 @@ export {
     Map,
     Dashboard,
     MeetingScreen,
-    MeetUpLoc
+    MeetUpLoc,
+    GetDirection,
+    GetDir
 }

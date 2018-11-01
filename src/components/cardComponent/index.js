@@ -83,9 +83,19 @@ class CardComponent extends Component {
                           width: "300px",
                           height: "400px",
                           backgroundSize: "cover",
-                          backgroundPosition: "center"
+                          backgroundPosition: "center",
+                          filter: "blur(10px)"
                         }}
-                      />
+                      >
+                      </div>
+                      <div
+                      className="cardImg2"
+                      style={{
+                        width: "300px",
+                        height: "400px",
+                        // filter: "blur(10px)"
+                      }}
+                      ><img style={{maxWidth: "100%"}} src={res} /></div>
                       <Carousel.Caption>
                         <h2 style={{ color: "white" }}>{item.name}</h2>
                       </Carousel.Caption>

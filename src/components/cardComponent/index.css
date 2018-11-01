@@ -3,11 +3,15 @@
     height: 100%;
     /* background-color: blue; */
     border: 1px solid gray;
+    margin-top: 10px;
 }
 .cardImg{
     background-color: black;
 }
-
+.cardImg2{
+    margin-top: -400px;
+    position: absolute;
+}
 .imgProps{
     display: block !important;
     max-width: 1000% !important;

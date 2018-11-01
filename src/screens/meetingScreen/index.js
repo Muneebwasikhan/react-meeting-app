@@ -15,6 +15,7 @@ import Swing from "react-swing";
 import Cards, { Card } from "react-swipe-deck";
 import CardComponent from "../../components/cardComponent";
 import Example from "../../components/Carousel";
+import MenuAppBar from '../../components/appBarSetPro';
 
 
 
@@ -26,6 +27,7 @@ class MeetingScreen extends Component {
       myData:{},
       chkResA:true, 
       chkResB:true, 
+      pageName: 'Nearby People'
     };
 
     this.getMyData();
@@ -129,15 +131,16 @@ meetuplocation=(res)=>{
 }
 
   render() {
-    const { list } = this.state;
+    const { list,pageName } = this.state;
     return (
       <div>
+        <MenuAppBar barName={pageName} /> 
         {/* <Example /> */}
-        <h1>Meeting Screen</h1>
+        {/* <h1>Meeting Screen</h1> */}
         {list.length && 
         <CardComponent list={list} meetuplocation={(res) => this.meetuplocation(res)}/>
         }
-        <button onClick={() => {this.logout()}}>LOGOUT</button>
+        <button className="button" onClick={() => {this.logout()}}>LOGOUT</button>
        
 
 

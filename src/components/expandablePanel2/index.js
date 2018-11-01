@@ -6,7 +6,7 @@ import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import InsetDividers from "../dividers";
+import InsetDividers2 from "../dividers2";
 
 const styles = theme => ({
   root: {
@@ -18,7 +18,7 @@ const styles = theme => ({
   }
 });
 
-function SimpleExpansionPanel(props) {
+function SimpleExpansionPanel2(props) {
   const { classes } = props;
   console.log("props********************");
   console.log(props);
@@ -34,7 +34,7 @@ function SimpleExpansionPanel(props) {
           if (res.status == "Pending") {
             return (
               <div style={{ width: "100%" }}>
-                <InsetDividers show={res} docOf={{ status: "Pending" }} />
+                <InsetDividers2 show={res} docOf={{ status: "Pending" }} />
                 {/* <h1>{res.userData.name}</h1> */}
                 <br />
               </div>
@@ -52,7 +52,7 @@ function SimpleExpansionPanel(props) {
           if (res.status == "Canceled") {
             return (
               <div style={{ width: "100%" }}>
-                <InsetDividers show={res} docOf={{ status: "Canceled" }} />
+                <InsetDividers2 show={res} docOf={{ status: "Canceled" }} />
                 {/* <h1>{res.userData.name}</h1> */}
               </div>
             );
@@ -68,7 +68,7 @@ function SimpleExpansionPanel(props) {
           if (res.status == "Accepted") {
             return (
               <div style={{ width: "100%" }}>
-                <InsetDividers show={res} docOf={{ status: "Accepted" }} />
+                <InsetDividers2 show={res} docOf={{ status: "Accepted" }} />
                 {/* <h1>{res.userData.name}</h1> */}
               </div>
             );
@@ -84,7 +84,7 @@ function SimpleExpansionPanel(props) {
           if (res.status == "Done") {
             return (
               <div style={{ width: "100%" }}>
-                <InsetDividers show={res} docOf={{ status: "Done" }} />
+                <InsetDividers2 show={res} docOf={{ status: "Done" }} />
                 {/* <h1>{res.userData.name}</h1> */}
               </div>
             );
@@ -95,8 +95,8 @@ function SimpleExpansionPanel(props) {
   );
 }
 
-SimpleExpansionPanel.propTypes = {
+SimpleExpansionPanel2.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(SimpleExpansionPanel);
+export default withStyles(styles)(SimpleExpansionPanel2);

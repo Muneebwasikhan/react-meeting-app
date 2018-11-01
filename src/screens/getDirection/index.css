@@ -1,0 +1,33 @@
+.mapBtn{
+    position: fixed;
+    bottom: 25px;
+    z-index: 2;
+    right: 60px;
+}
+.mapBtn {
+    background-color: white;
+    border: none;
+    padding: 5px 15px;
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 1000;
+    height: 50px;
+    width: 150px;
+    color: #666666;
+    border-radius: 3px;
+    }
+    .mapBtn:focus {outline:0;}
+    .mapBtn:hover {
+    cursor: pointer;
+    color: rgba(0, 0, 0, 0.733);
+    }
+    
+    .mapBtn:active {
+        cursor: pointer;
+        color: black;
+    }
+    
+    
+    .mapBtn:active {
+    outline: none;
+    border: none;}

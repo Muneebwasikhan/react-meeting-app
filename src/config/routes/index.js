@@ -11,8 +11,8 @@ const Routes = () => (
         <Route exact path="/dashboard" component={Screens.Dashboard} />
         <Route exact path="/meetingScreen" component={Screens.MeetingScreen} />
         <Route exact path="/meetupLocation" component={Screens.MeetUpLoc} />
-        {/* <Route exact path="/direction" component={Screens.MeetUpLoc} /> */}
-        
+        <Route exact path="/direction" component={Screens.GetDirection} />
+        <Route exact path="/dir" component={Screens.GetDir} />
       </div>  
     </Router>
 );

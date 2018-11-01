@@ -5,6 +5,8 @@ import * as firebase from 'firebase';
 import './index.css';
 import ButtonAppBar from '../../components/header';
 import ContainedButtons from '../../components/button'
+import logo from '../../assets/cma.png';
+import MenuAppBar from '../../components/appBarSetPro';
 
 //--------GLOBALSS--------------
 
@@ -20,15 +22,21 @@ class Login extends Component {
     constructor(){
         super();
         this.state = {
+          pageName: "LOGIN WITH FACEBOOK "
         }
         this.login = this.login.bind(this);
       }
 // ------------------RENDER------------------------------------------------
     render() { 
+      const {pageName} = this.state;
         return ( 
-            <div className="backImg">
-              <ButtonAppBar />
-                <h1>MEETING APPLICATION</h1>
+            <div>
+              <MenuAppBar barName={pageName} /> 
+              {/* <ButtonAppBar /> */}
+                {/* <h1>MEETING APPLICATION</h1> */}
+
+                <div><img style={{maxWidth: "100%",marginTop: "50px"}} src={logo} /></div>
+                <br />
           <button className="loginFbButton" onClick={this.login}>LOGIN WITH FACEBOOK</button>
             </div>
          );
@@ -59,7 +67,8 @@ login(){
       if(!res.data()){
         db.collection("user").doc(user.uid).set({
           name: user.displayName,
-          email: user.email
+          email: user.email,
+          uid: user.uid
         }).then(res => {
           console.log("added in db");
           

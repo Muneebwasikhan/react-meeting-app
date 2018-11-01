@@ -6,6 +6,9 @@ import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-map
 import Routes from '../../config/routes';
 import MenuAppBar from '../../components/appBarSetPro';
 import SimpleExpansionPanel from '../../components/expandablePanel';
+import SimpleExpansionPanel2 from '../../components/expandablePanel2';
+import CircularIndeterminate from '../../components/progress';
+import SwipeableTemporaryDrawer from '../../components/swipableDrawer';
 
 
 
@@ -13,7 +16,12 @@ class Dashboard extends Component {
   constructor(){
     super();
     this.state = {
-      pageName: 'Dashboard'
+      pageName: 'Dashboard',
+      loading: true,
+      meetUpData: [],
+      meetUpData2: [],
+      showUR: false,
+      showMR: false
     }
   }
   getMyData(){
@@ -30,39 +38,75 @@ class Dashboard extends Component {
 componentDidMount() {
   this.getMyData();
   this.getMeetups();
+  this.getMeetups2();
 }
 
-getMeetups(){
+getMeetups = () => {
+  let { meetUpData,loading } = this.state;
   var myId = localStorage.getItem('meetingAppUserId');
+  // console.log(myId);
   db.collection('meetUps').where("meetUPWithId", "==", myId).onSnapshot(res => {
-    res.forEach(resp => {
-      if(resp.data().status == "Pending"){
-        console.log('Pending****');
+    let newArr = [];
+    console.log(res);
+    // this.state.meetUpData = [];
+    // this.setState({meetUpData: []},() => {
+      console.log(meetUpData);
+      res.forEach(resp => {
+        newArr.push(resp.data());
         console.log(resp.data());
-      }
-      if(resp.data().status == "Accepted"){
-        console.log('Accepted****');
+      });
+      
+      // })
+      
+      console.log(newArr)
+      this.setState({meetUpData: newArr,loading: false});
+
+    });
+    // setInterval(() => {
+    //   this.setState({loading: false});
+    // },5000)
+    // this.setState({loading: false});
+
+}
+getMeetups2 = () => {
+  let { meetUpData2,loading } = this.state;
+  var myId = localStorage.getItem('meetingAppUserId');
+  // console.log(myId);
+  db.collection('meetUps').where("userId", "==", myId).onSnapshot(res => {
+    let newArr = [];
+    console.log(res);
+    // this.state.meetUpData = [];
+    // this.setState({meetUpData: []},() => {
+      console.log(meetUpData2);
+      res.forEach(resp => {
+        newArr.push(resp.data());
         console.log(resp.data());
-      }
-      if(resp.data().status == "Canceled"){
-        console.log('Canceled****');
-        console.log(resp.data());
-      }
-      if(resp.data().status == "Done"){
-        console.log('Done****');
-        console.log(resp.data());
-      }
-    })
-  })
+      });
+      
+      // })
+      
+      console.log(newArr)
+      this.setState({meetUpData2: newArr,loading: false});
+
+    });
+
 }
    
     render() {
-     const { pageName } = this.state;
+     let { pageName,meetUpData,meetUpData2,loading,showUR,showMR } = this.state;
+     console.log(meetUpData);
       return (
        <div>
-         <MenuAppBar barName={pageName} />
-         <SimpleExpansionPanel />
-         <div className="setProPos">
+        <MenuAppBar barName={pageName} /> 
+         {loading && <CircularIndeterminate />}
+         {!loading && meetUpData.length && <div style={{backgroundColor : "#3f51b5b0"}} onClick={() => {this.setState({showUR: !showUR})}}>
+         <hr />
+         <h4>Requests From Users !</h4>
+         <hr />
+         </div>}
+         {!loading && meetUpData.length && showUR && <SimpleExpansionPanel meetUpData={meetUpData} />}
+          {/* {meetUpData && <SimpleExpansionPanel />} */}
+          {!loading && !meetUpData.length && <div className="setProPos">
          <h4>“You haven't done any meeting yet!”</h4>
          <button
          className="button"
@@ -72,8 +116,34 @@ getMeetups(){
          }>
          “Set a meeting!”
          </button>
-         </div>
+         </div>}
+         {/* <SwipeableTemporaryDrawer /> */}
+         {/* <button onClick={() => {
+           this.props.history.push('/direction');
+         }}>get direction</button>
+         <button onClick={() => {
+           this.props.history.push('/dir');
+         }}>get dir</button> */}
+
+         {!loading && meetUpData.length && <div style={{backgroundColor : "#7a87cc8f"}} onClick={() => {this.setState({showMR: !showMR})}}>
+         <hr />
+         <h4>Sended Requests !</h4>
+         <hr />
+         </div>}
+         {!loading && meetUpData.length && showMR && <SimpleExpansionPanel2 meetUpData={meetUpData2} />}
+
+         {!loading && meetUpData.length && <div className="setProPos spp2">
          
+         <button
+         className="button b2"
+         onClick={() => {
+           this.props.history.push('/meetingScreen');
+         }
+         }>
+         
+         “Set more meetings!”
+         </button>
+         </div>}
        </div>
       );
     }

@@ -53,6 +53,7 @@ componentDidMount() {
 }
 getTime = (res) => {
   const { forDb } = this.state;
+  const th = this;
   console.log('getTime****************');
   console.log(res._d);
   forDb.time = res._d;
@@ -62,6 +63,7 @@ getTime = (res) => {
     console.log(forDb);
     db.collection('meetUps').doc().set(forDb).then(res => {
       console.log('added to db');
+      th.props.history.replace("/dashboard");
     })
   })
 }
@@ -90,7 +92,7 @@ swal(`“Are your sure for this location”`, {
     console.log('yes');
     console.log(data.userData);
     console.log(res);
-    this.setState({forDb: {userId: data.myData.email,userData: data.myData,meetUPWithId: data.userData.email,meetUPWithData: data.userData,location: res}},()=>{
+    this.setState({forDb: {userId: data.myData.uid,userData: data.myData,meetUPWithId: data.userData.uid,meetUPWithData: data.userData,location: res}},()=>{
       this.showPicker();
     });
   }

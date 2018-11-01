@@ -12,43 +12,43 @@ const styles = theme => ({
   },
 });
 
-function ContainedButtons(props) {
+function TextButtons(props) {
   const { classes } = props;
+  const { btnArgs } = props;
   return (
-    <div>
-      <Button variant="contained" className={classes.button}>
-        Default
-      </Button>
-      <Button variant="contained" color="primary" className={classes.button}>
-        Primary
-      </Button>
-      <Button variant="contained" color="secondary" className={classes.button}>
-        Secondary
-      </Button>
-      <Button variant="contained" color="secondary" disabled className={classes.button}>
-        Disabled
-      </Button>
-      <Button variant="contained" href="#contained-buttons" className={classes.button}>
-        Link
-      </Button>
-      <input
-        accept="image/*"
-        className={classes.input}
-        id="contained-button-file"
-        multiple
-        type="file"
-      />
-      <label htmlFor="contained-button-file">
-        <Button variant="contained" component="span" className={classes.button}>
-          Upload
-        </Button>
-      </label>
-    </div>
+      <Button color={btnArgs.type} className={classes.button}>{btnArgs.text}</Button>
+    // <div>
+    //   <Button className={classes.button}>Default</Button>
+    //   <Button color="primary" className={classes.button}>
+    //     Primary
+    //   </Button>
+    //   <Button color="secondary" className={classes.button}>
+    //     Secondary
+    //   </Button>
+    //   <Button disabled className={classes.button}>
+    //     Disabled
+    //   </Button>
+    //   <Button href="#text-buttons" className={classes.button}>
+    //     Link
+    //   </Button>
+    //   <input
+    //     accept="image/*"
+    //     className={classes.input}
+    //     id="flat-button-file"
+    //     multiple
+    //     type="file"
+    //   />
+    //   <label htmlFor="flat-button-file">
+    //     <Button component="span" className={classes.button}>
+    //       Upload
+    //     </Button>
+    //   </label>
+    // </div>
   );
 }
 
-ContainedButtons.propTypes = {
+TextButtons.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(ContainedButtons);
+export default withStyles(styles)(TextButtons);
