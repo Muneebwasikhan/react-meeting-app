@@ -11,6 +11,11 @@ import CircularIndeterminate from '../../components/progress';
 import SwipeableTemporaryDrawer from '../../components/swipableDrawer';
 
 
+// const messaging = firebase.messaging();
+
+// messaging.onMessage(payload => {
+//   console.log('messagePayload*********',payload);
+// });
 
 class Dashboard extends Component {
   constructor(){
@@ -39,8 +44,22 @@ componentDidMount() {
   this.getMyData();
   this.getMeetups();
   this.getMeetups2();
+  // this.messageToken();
 }
-
+// messageToken = () => {
+//   messaging.requestPermission()
+//   .then(() => {
+//     console.log('accepted');
+//     console.log(messaging);
+//     return messaging.getToken();
+//   })
+//   .then(res => {
+//     console.log(res);
+//    })
+//   .catch(error => {
+//     console.log(error);
+//   })
+// }
 getMeetups = () => {
   let { meetUpData,loading } = this.state;
   var myId = localStorage.getItem('meetingAppUserId');

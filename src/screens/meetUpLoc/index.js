@@ -22,10 +22,10 @@ class MeetUpLoc extends Component {
       showDTPicker: false,
       // moment: moment()
     }
-    
-    
   }
 
+
+  
   showPicker(){
     this.setState({showDTPicker: true});
   }
@@ -51,6 +51,9 @@ componentDidMount() {
   })
 
 }
+
+
+
 getTime = (res) => {
   const { forDb } = this.state;
   const th = this;
@@ -64,6 +67,36 @@ getTime = (res) => {
     db.collection('meetUps').doc().set(forDb).then(res => {
       console.log('added to db');
       th.props.history.replace("/dashboard");
+    }).then(res => {
+
+
+
+      var key = 'AIzaSyBZbCXphJzY5jdA5kuo_Ljbd9OHUijmCws';
+	var notification = {
+	'title': "Let's have a new Meetup",
+	'body': "Meetup request from " + forDb,
+	'icon': forDb.meetUPWithData.imgList[0],
+	'click_action': "/dashboard"
+};
+			fetch('https://fcm.googleapis.com/fcm/send', {
+	'method': 'POST',
+	'headers': {
+		'Authorization': 'key=' + key,
+		'Content-Type': 'application/json'
+	},
+	'body': JSON.stringify({
+		'notification': notification,
+		'to': forDb.meetUPWithData.token
+	})
+}).then(function(response) {
+	console.log(response);
+}).catch(function(error) {
+	console.error(error);
+});
+
+
+
+
     })
   })
 }

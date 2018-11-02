@@ -4,6 +4,16 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
+import * as firebase from 'firebase'; 
+
+const messaging = firebase.messaging();
+
+messaging.onMessage(payload => {
+  console.log('messagePayload*********',payload);
+});
+
+
+
 ReactDOM.render(<App />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change

@@ -65,7 +65,7 @@ class SetProfile extends Component {
               }}
             /><br />
             <button
-                className="button"
+                className="btn2"
               onClick={() => {
                 // this.setState({ pos: 2 });
                 var oa = overAll;
@@ -138,7 +138,7 @@ class SetProfile extends Component {
             )}
             <br />
             <button
-              className="button"
+              className="btn2"
               onClick={() => {
                 console.log(imageList);
                 this.uploadTOFireStore(imageList);
@@ -165,7 +165,7 @@ class SetProfile extends Component {
             <input type="checkbox" name="baverages" value="cocktail" /> Cocktail
             <br />
             <button
-             className="button"
+             className="btn2"
               onClick={() => {
                 var bav = document.getElementsByName("baverages");
                 console.log(bav.length);
@@ -198,7 +198,7 @@ class SetProfile extends Component {
             <br />
             <input type="checkbox" name="duration" value="120Min" /> 120 min
             <br />
-           {uploadProcess && <button className="button"
+           {uploadProcess && <button className="btn2"
               onClick={() => {
                 // this.setState({ pos: 4 });
                 var dur = document.getElementsByName("duration");
@@ -220,7 +220,7 @@ class SetProfile extends Component {
               NEXT
             </button>}
             {!uploadProcess && <button
-             className="button"
+             className="btn2"
               onClick={() => {
                 alert("Let image uploading be complete first");
               }}

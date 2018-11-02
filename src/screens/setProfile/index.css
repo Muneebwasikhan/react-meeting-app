@@ -1,15 +1,6 @@
 .fontOfchkBock{
   font-size: 20px;
 }
-/* .ant-upload-select-picture-card i {
-    font-size: 32px;
-    color: #999;
-  }
-  
-  .ant-upload-select-picture-card .ant-upload-text {
-    margin-top: 8px;
-    color: #666;
-  } */
 
   input[type='file']::-webkit-file-upload-button
   {
@@ -48,6 +39,20 @@
 
   .button{
     font-size: 15px;
+    color: white;
+    width: 80%;
+    height: 50px;
+    background: #3f51b5 !important;
+    border-radius: 27px;
+    padding: 0 35px 0 35px;
+    margin: 5px 0px;
+    border-style: none;
+    max-width: 400px;
+    outline-style: none;
+  }
+
+  .btn2{
+     font-size: 15px;
     color: white;
     width: 80%;
     height: 50px;

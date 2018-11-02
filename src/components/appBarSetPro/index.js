@@ -12,7 +12,20 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormGroup from '@material-ui/core/FormGroup';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import SwipeableTemporaryDrawer from '../swipableDrawer';
+
+import {  Avatar } from "@material-ui/core";
+
+import Button from '@material-ui/core/Button';
+import List from '@material-ui/core/List';
+import Divider from '@material-ui/core/Divider';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import InboxIcon from '@material-ui/icons/MoveToInbox';
+import MailIcon from '@material-ui/icons/Mail';
+
+
+import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 
 const styles = {
   root: {
@@ -25,12 +38,35 @@ const styles = {
     marginLeft: -12,
     marginRight: 20,
   },
+  list: {
+    width: 250,
+  },
+  fullList: {
+    width: 'auto',
+  },
+  avatar: {
+    width: 60,
+    height: 60,
+    top: 60,
+    left: 10
+  },
+  drawerText: {
+    paddingLeft: '10px',
+    // backgroundColor: '#e0f2f111',
+    color: "white"
+  }
 };
 
 class MenuAppBar extends React.Component {
   state = {
     auth: true,
     anchorEl: null,
+    left: false,
+  };
+  toggleDrawer = (side, open) => () => {
+    this.setState({
+      left: open,
+    });
   };
 
   handleChange = event => {
@@ -44,22 +80,97 @@ class MenuAppBar extends React.Component {
   handleClose = () => {
     this.setState({ anchorEl: null });
   };
+  sideMenu = () => {
+    console.log('sid menu');
+  }
 
+
+  componentDidMount(){
+    if(localStorage.getItem("meetingAppUserData")){
+      this.setState({myData: JSON.parse(localStorage.getItem("meetingAppUserData"))});
+    }
+  }
   render() {
     const { classes } = this.props;
-    const { auth, anchorEl } = this.state;
+    const { auth, anchorEl,myData } = this.state;
     const open = Boolean(anchorEl);
     const {barName} = this.props;
     console.log(this.props);
+
+
+    const sideList = (
+      // <div className={classes.list}>
+      //   <List>
+      //   <ListItem button key="Dashboard">
+      //         <ListItemIcon><InboxIcon /></ListItemIcon>
+      //         <ListItemText primary="Dashboard" />
+      //       </ListItem>
+      //   </List>
+      //   <Divider />
+      //   <List>
+      //   <ListItem button key="Logout">
+      //         <ListItemIcon><MailIcon /></ListItemIcon>
+      //         <ListItemText primary="Logout" />
+      //       </ListItem>
+      //   </List>
+      // </div>
+      <div>
+      {myData && <div className={classes.list}>
+        <div style={{ width: "100%", height: "200px", backgroundImage: `url(https://img3.goodfon.ru/wallpaper/big/3/2f/poligony-linii-grani-ugol.jpg)`, backgroundRepeat: 'no-repeat', backgroundSize: "cover" }}>
+          <span>
+            <Avatar src={myData.imgList[0]} className={classes.avatar} alt="Profile Picture" />
+            <br />
+            <br />
+            <br />
+            <Typography className={classes.drawerText} variant='overline'>{myData.name}</Typography>
+            <Typography className={classes.drawerText} variant='body2'>{myData.email}</Typography>
+          </span>
+        </div>
+    <List>
+  <ListItem button key="Dashboard">
+        <ListItemIcon><InboxIcon /></ListItemIcon>
+        <ListItemText primary="Dashboard" />
+      </ListItem>
+  </List>
+  <Divider />
+  <List>
+  <ListItem button key="Logout">
+        <ListItemIcon><MailIcon /></ListItemIcon>
+        <ListItemText primary="Logout" />
+      </ListItem>
+  </List>
+      </div>}
+      </div>
+    );
+
+
     return (
       <div className={classes.root}>
         
-         <SwipeableTemporaryDrawer />
+         {/* <SwipeableTemporaryDrawer /> */}
+         
         <AppBar position="static">
           <Toolbar>
-            <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
+          <SwipeableDrawer
+          open={this.state.left}
+          onClose={this.toggleDrawer('left', false)}
+          onOpen={this.toggleDrawer('left', true)}
+        >
+        <div
+            tabIndex={0}
+            role="button"
+            onClick={this.toggleDrawer('left', true)}
+            onKeyDown={this.toggleDrawer('left', true)}
+          >
+            {sideList}
+          </div>
+        </SwipeableDrawer>
+            <IconButton 
+             onClick={this.toggleDrawer('left', true)}
+            className={classes.menuButton} color="inherit" aria-label="Menu">
               <MenuIcon />
             </IconButton>
+            
             <Typography variant="h6" color="inherit" className={classes.grow}>
               {barName}
             </Typography>

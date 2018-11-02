@@ -11,6 +11,9 @@ import MenuAppBar from '../../components/appBarSetPro';
 //--------GLOBALSS--------------
 
 
+
+
+
 var provider = new firebase.auth.FacebookAuthProvider();
 // provider.addScope('user_birthday');
 // firebase.auth().languageCode = 'fr_FR';
@@ -22,7 +25,8 @@ class Login extends Component {
     constructor(){
         super();
         this.state = {
-          pageName: "LOGIN WITH FACEBOOK "
+          pageName: "LOGIN WITH FACEBOOK ",
+          token: ""
         }
         this.login = this.login.bind(this);
       }
@@ -35,7 +39,7 @@ class Login extends Component {
               {/* <ButtonAppBar /> */}
                 {/* <h1>MEETING APPLICATION</h1> */}
 
-                <div><img style={{maxWidth: "100%",marginTop: "50px"}} src={logo} /></div>
+                <div><img style={{maxWidth: "80%",marginTop: "50px"}} src={logo} /></div>
                 <br />
           <button className="loginFbButton" onClick={this.login}>LOGIN WITH FACEBOOK</button>
             </div>
@@ -50,8 +54,28 @@ componentDidMount(){
     
     this.props.history.push(`/setProfile`);
   }
+
+  this.messageToken('dd');
 }
 
+messageToken = (id) => {
+  
+const messaging = firebase.messaging();
+  messaging.requestPermission()
+  .then(() => {
+    console.log('accepted');
+    console.log(messaging);
+    return messaging.getToken();
+  })
+  .then(res => {
+    console.log(res);
+    this.setState({token: res});
+
+   })
+  .catch(error => {
+    console.log(error);
+  })
+}
 
 login(){
   const th = this;
@@ -68,10 +92,10 @@ login(){
         db.collection("user").doc(user.uid).set({
           name: user.displayName,
           email: user.email,
-          uid: user.uid
+          uid: user.uid,
+          token: th.state.token
         }).then(res => {
           console.log("added in db");
-          
       localStorage.setItem("meetingAppUserId",user.uid);
       localStorage.setItem("meetingAppUserName",user.displayName);
       th.props.history.push(`/setProfile`);
@@ -79,11 +103,15 @@ login(){
       }
       else{
         console.log("already present");
-        
-      localStorage.setItem("meetingAppUserId",user.uid);
-      localStorage.setItem("meetingAppUserName",user.displayName);
-      localStorage.setItem("meetingAppUserData",JSON.stringify(res.data()));
-      th.props.history.push(`/setProfile`);
+        db.collection("user").doc(user.uid).set({
+          token: th.state.token
+        },{merge: true}).then(resp => {
+          console.log("added in db");
+          localStorage.setItem("meetingAppUserId",user.uid);
+          localStorage.setItem("meetingAppUserName",user.displayName);
+          localStorage.setItem("meetingAppUserData",JSON.stringify(res.data()));
+          th.props.history.push(`/setProfile`);
+        })
       }
       
       return res;
@@ -92,14 +120,7 @@ login(){
     })
   
   }).catch(function(error) {
-    // Handle Errors here.
-    var errorCode = error.code;
-    var errorMessage = error.message;
-    // The email of the user's account used.
-    var email = error.email;
-    // The firebase.auth.AuthCredential type that was used.
-    var credential = error.credential;
-    // ...
+    console.log(error);
   });
 }
 
