@@ -15,11 +15,6 @@ import MenuAppBar from '../../components/appBarSetPro';
 
 
 var provider = new firebase.auth.FacebookAuthProvider();
-// provider.addScope('user_birthday');
-// firebase.auth().languageCode = 'fr_FR';
-// provider.setCustomParameters({
-//   'display': 'popup'
-// });
 
 class Login extends Component {
     constructor(){
