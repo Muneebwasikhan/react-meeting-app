@@ -30,15 +30,19 @@ class NotificationScreen extends Component {
       notificationScr: [],
       showNOt: false
     };
+    
+  }
+  componentDidMount() {
     this.changeStatus();
   }
   changeStatus() {
     const {notificationScr} =this.state;
+    const th = this;
     var userId = localStorage.getItem("meetingAppUserId");
     db.collection("meetUps")
       .where("userId", "==", userId)
       .onSnapshot(res => {
-        this.setState({notificationScr: [],showNot:true},() => {
+        th.setState({notificationScr: [],showNot:true},() => {
           console.log("dddd------------------")
         })
         res.forEach(res => {
