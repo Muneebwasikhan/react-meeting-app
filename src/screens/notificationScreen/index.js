@@ -141,7 +141,7 @@ class NotificationScreen extends Component {
                     style={{ backgroundColor: "transparent" }}
                   >
                 <div className="imgDivNot imgDivNot2" style={{overflow: "hidden"}}>
-                        <img src={res.userData.imgList[0]}style={{
+                        <img src={res.meetUPWithData.imgList[0]}style={{
                           width:"150%"
                         }}/>
                   </div>
@@ -150,7 +150,7 @@ class NotificationScreen extends Component {
               </div>
             </div>
 
-            <p className="notiP">{res.meetUPWithData.nickName}</p>
+            <p className="notiP">{res.userData.nickName}</p>
             <div className="infoDivNoti">
               <p>Duration : {res.userData.duration[0]}</p>
               <p>Location : {res.location.venue.name}</p>

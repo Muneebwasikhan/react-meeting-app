@@ -15,6 +15,7 @@ import Menu from '@material-ui/core/Menu';
 
 import {  Avatar } from "@material-ui/core";
 
+import * as firebase from "firebase";
 import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
@@ -23,6 +24,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
+import {withRouter} from 'react-router-dom';
 
 
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
@@ -84,7 +86,22 @@ class MenuAppBar extends React.Component {
     console.log('sid menu');
   }
 
-
+  editPro = () => {
+    console.log(this.props);
+    this.props.history.push("/editProfile");
+  }
+  logOut=()=>{
+    const th = this;
+    firebase.auth().signOut().then(function (res) {
+      localStorage.clear();
+      console.log('logedOut');
+      th.props.history.replace("/");
+    console.log(this.props);
+    }).catch(function (error) {
+      console.log(error + ' -----> logouttttt');
+    });
+    // this.props.history.replace("/");
+  }
   componentDidMount(){
     if(localStorage.getItem("meetingAppUserData")){
       this.setState({myData: JSON.parse(localStorage.getItem("meetingAppUserData"))});
@@ -126,15 +143,22 @@ class MenuAppBar extends React.Component {
             <Typography className={classes.drawerText} variant='body2'>{myData.email}</Typography>
           </span>
         </div>
-    <List>
+    <List onClick={() => {this.props.history.push("/dashboard")}}>
   <ListItem button key="Dashboard">
         <ListItemIcon><InboxIcon /></ListItemIcon>
         <ListItemText primary="Dashboard" />
       </ListItem>
   </List>
   <Divider />
+  
+  <List onClick={this.editPro}>
+  <ListItem button key="Edit_Profile">
+        <ListItemIcon><MailIcon /></ListItemIcon>
+        <ListItemText primary="Edit Profile" />
+      </ListItem>
+  </List>
   <List>
-  <ListItem button key="Logout">
+  <ListItem button key="Logout" onClick={this.logOut}>
         <ListItemIcon><MailIcon /></ListItemIcon>
         <ListItemText primary="Logout" />
       </ListItem>
@@ -198,7 +222,7 @@ class MenuAppBar extends React.Component {
                   open={open}
                   onClose={this.handleClose}
                 >
-                  <MenuItem onClick={this.handleClose}>Profile</MenuItem>
+                  <MenuItem onClick={this.editPro}>Profile</MenuItem>
                   <MenuItem onClick={this.handleClose}>My account</MenuItem>
                 </Menu>
               </div>
@@ -214,4 +238,4 @@ MenuAppBar.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(MenuAppBar);
+export default withRouter(withStyles(styles)(MenuAppBar));
