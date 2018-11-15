@@ -28,14 +28,14 @@ class NotificationScreen extends Component {
     super();
     this.state = {
       notificationScr: [],
-      showNOt: false,
+      showNOt: true,
     };
     
   }
 
 
   componentDidMount() {
-    localStorage.setItem("notif","false");
+    // localStorage.setItem("notif","false");
     
       this.changeStatus();
     
@@ -125,7 +125,7 @@ class NotificationScreen extends Component {
                   >
 
                     <div className="imgDivNot imgDivNot2" style={{overflow: "hidden"}}>
-                        <img src={res.meetUPWithData.imgList[0]}style={{
+                        <img src={res.userData.imgList[0]}style={{
                           width:"150%"
                         }}/>
                   </div>
@@ -152,7 +152,7 @@ class NotificationScreen extends Component {
 
             <p className="notiP">{res.meetUPWithData.nickName}</p>
             <div className="infoDivNoti">
-              <p>Duration : {res.meetUPWithData.duration[0]}</p>
+              <p>Duration : {res.userData.duration[0]}</p>
               <p>Location : {res.location.venue.name}</p>
               <p>Time : 18/5/19 - 05:30</p>
             </div>
