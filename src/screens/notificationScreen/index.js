@@ -28,28 +28,46 @@ class NotificationScreen extends Component {
     super();
     this.state = {
       notificationScr: [],
-      showNOt: false
+      showNOt: false,
     };
     
   }
+
+
   componentDidMount() {
-    this.changeStatus();
+    localStorage.setItem("notif","false");
+    
+      this.changeStatus();
+    
+    
   }
+
   changeStatus() {
-    const {notificationScr} =this.state;
+    const {notificationScr,showNOt,firstTime} =this.state;
     const th = this;
     var userId = localStorage.getItem("meetingAppUserId");
     db.collection("meetUps")
-      .where("userId", "==", userId)
+      .where("meetUPWithId", "==", userId)
+      // .where("userId", "==", userId)
       .onSnapshot(res => {
-        th.setState({notificationScr: [],showNot:true},() => {
+        const chk = localStorage.getItem("notif");
+        const arr = [];
+        if(chk == "true"){
+          // this.state.showNOt =true;
+         
+        this.setState({showNOt:true},() => {
           console.log("dddd------------------")
         })
+        }
+        
+        
         res.forEach(res => {
+    localStorage.setItem("notif","true");
+
           console.log(res.data());
           console.log("-----------------------chlgya baiii");
-          notificationScr.push(res.data());
-          this.setState({notificationScr});
+          arr.push(res.data());
+          this.setState({notificationScr:arr});
         });
       });
   }
