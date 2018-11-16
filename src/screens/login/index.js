@@ -74,7 +74,7 @@ const messaging = firebase.messaging();
   })
 }
 
-login(){
+login=()=>{
   const th = this;
   firebase.auth().signInWithPopup(provider).then(function(result) {
     // This gives you a Facebook Access Token. You can use it to access the Facebook API.
@@ -95,8 +95,8 @@ login(){
           console.log("added in db");
       localStorage.setItem("meetingAppUserId",user.uid);
       localStorage.setItem("meetingAppUserName",user.displayName);
-      this.props.setMeetingAppUserId(user.uid);
-      this.props.setMeetingAppUserName(user.displayName);
+      th.props.setMeetingAppUserId(user.uid);
+      th.props.setMeetingAppUserName(user.displayName);
       th.props.history.push(`/setProfile`);
         })
       }
@@ -109,9 +109,9 @@ login(){
           localStorage.setItem("meetingAppUserId",user.uid);
           localStorage.setItem("meetingAppUserName",user.displayName);
           localStorage.setItem("meetingAppUserData",JSON.stringify(res.data()));
-          this.props.setMeetingAppUserId(user.uid);
-          this.props.setMeetingAppUserName(user.displayName);
-          this.props.setMeetingAppUserData(res.data());
+          th.props.setMeetingAppUserId(user.uid);
+          th.props.setMeetingAppUserName(user.displayName);
+          th.props.setMeetingAppUserData(res.data());
           th.props.history.push(`/setProfile`);
         })
       }

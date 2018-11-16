@@ -7,7 +7,7 @@ import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-map
 import Routes from '../src/config/routes';
 import NotificationScreen from './screens/notificationScreen';
 import {Provider} from 'react-redux';
-import store from './redux/store';
+import {store,persistor} from './redux/store';
 import {PersistGate} from 'redux-persist/integration/react';
 
 

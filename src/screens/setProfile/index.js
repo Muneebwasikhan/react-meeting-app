@@ -258,19 +258,20 @@ class SetProfile extends Component {
   componentDidMount(){
     const { myId } = this.state;
     const th = this;
-    console.log(this.props.id ,this.props.name);
-    // if(!localStorage.getItem('meetingAppUserId') || !localStorage.getItem('meetingAppUserName')){
-    // this.props.history.push(`/`);
-    // }
-    // this.setState({myId: localStorage.getItem('meetingAppUserId')});
-    // this.setState({myName:localStorage.getItem('meetingAppUserName')});
+    console.log(this.props.meetingAppUserId ,this.props.meetingAppUserName);
+    console.log(this.props.meetingAppUserId);
+    if(!localStorage.getItem('meetingAppUserId') || !localStorage.getItem('meetingAppUserName')){
+    this.props.history.push(`/`);
+    }
+    this.setState({myId: localStorage.getItem('meetingAppUserId')});
+    this.setState({myName:localStorage.getItem('meetingAppUserName')});
 
-    // if(localStorage.getItem('meetingAppUserId') && localStorage.getItem('meetingAppUserName') && localStorage.getItem('meetingAppUserData')){
-    //   var data = JSON.parse(localStorage.getItem('meetingAppUserData'));
-    //   if(data.imgList && data.nickName){
-    //     this.props.history.replace('/dashboard');
-    //   }
-    // }
+    if(localStorage.getItem('meetingAppUserId') && localStorage.getItem('meetingAppUserName') && localStorage.getItem('meetingAppUserData')){
+      var data = JSON.parse(localStorage.getItem('meetingAppUserData'));
+      if(data.imgList && data.nickName){
+        this.props.history.replace('/dashboard');
+      }
+    }
     
     // if(localStorage.getItem('meetingAppUserId') || localStorage.getItem('meetingAppUserName')){
     //  var id = localStorage.getItem('meetingAppUserId');
