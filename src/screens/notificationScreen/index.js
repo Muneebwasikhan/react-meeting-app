@@ -50,17 +50,8 @@ class NotificationScreen extends Component {
       .where("meetUPWithId", "==", userId)
       // .where("userId", "==", userId)
       .onSnapshot(res => {
-        const chk = localStorage.getItem("notif");
         const arr = [];
-        if(chk == "true"){
-          // this.state.showNOt =true;
-         
-        this.setState({showNOt:true},() => {
-          console.log("dddd------------------")
-        })
-        }
-        
-        
+       
         res.forEach(res => {
     localStorage.setItem("notif","true");
 

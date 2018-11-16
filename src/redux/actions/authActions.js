@@ -4,6 +4,24 @@ const updateUser = (user) => {
         user
     }
 }
+const setMeetingAppUserId = (id) => {
+    return {
+        type: "USER_ID",
+        id
+    }
+}
+const setMeetingAppUserName = (name) => {
+    return {
+        type: "USER_NAME",
+        name
+    }
+}
+const setMeetingAppUserData = (data) => {
+    return {
+        type: "USER_DATA",
+        data
+    }
+}
 
 const removeUser = () => {
     return {
@@ -12,7 +30,6 @@ const removeUser = () => {
 }
 
 
-export default {
-    updateUser,
-    removeUser
+export {
+    updateUser,removeUser,setMeetingAppUserId,setMeetingAppUserName,setMeetingAppUserData
 }

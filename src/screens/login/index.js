@@ -7,6 +7,8 @@ import ButtonAppBar from '../../components/header';
 import ContainedButtons from '../../components/button'
 import logo from '../../assets/cma.png';
 import MenuAppBar from '../../components/appBarSetPro';
+import {connect} from 'react-redux';
+import {setMeetingAppUserId,setMeetingAppUserName,setMeetingAppUserData} from '../../redux/actions/authActions';
 
 //--------GLOBALSS--------------
 
@@ -93,6 +95,8 @@ login(){
           console.log("added in db");
       localStorage.setItem("meetingAppUserId",user.uid);
       localStorage.setItem("meetingAppUserName",user.displayName);
+      this.props.setMeetingAppUserId(user.uid);
+      this.props.setMeetingAppUserName(user.displayName);
       th.props.history.push(`/setProfile`);
         })
       }
@@ -105,6 +109,9 @@ login(){
           localStorage.setItem("meetingAppUserId",user.uid);
           localStorage.setItem("meetingAppUserName",user.displayName);
           localStorage.setItem("meetingAppUserData",JSON.stringify(res.data()));
+          this.props.setMeetingAppUserId(user.uid);
+          this.props.setMeetingAppUserName(user.displayName);
+          this.props.setMeetingAppUserData(res.data());
           th.props.history.push(`/setProfile`);
         })
       }
@@ -118,8 +125,21 @@ login(){
     console.log(error);
   });
 }
-
-
 }
+
+const mapStateToProps = (state) => {
+return{
+  meetingAppUserId : state.authReducers.id,
+    meetingAppUserName : state.authReducers.name,
+    meetingAppUserData : state.authReducers.data
+}
+}
+const mapDispatchToProps = (dispatch) => {
+  return{
+    setMeetingAppUserId : (id) => dispatch(setMeetingAppUserId(id)),
+    setMeetingAppUserName : (name) => dispatch(setMeetingAppUserName(name)),
+    setMeetingAppUserData : (data) => dispatch(setMeetingAppUserData(data)),
+  }
+  }
  
-export default Login;
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

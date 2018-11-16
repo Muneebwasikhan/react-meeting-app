@@ -5,6 +5,9 @@ import "antd/dist/antd.css";
 import db from "../../config/firebase";
 import * as firebase from "firebase";
 import MenuAppBar from '../../components/appBarSetPro';
+import {connect} from 'react-redux';
+import { setMeetingAppUserId,setMeetingAppUserName,setMeetingAppUserData} from '../../redux/actions/authActions';
+
 
 class SetProfile extends Component {
   constructor() {
@@ -246,6 +249,7 @@ class SetProfile extends Component {
       db.collection('user').doc(myId).get().then(res => {
         console.log(res.data());
         localStorage.setItem('meetingAppUserData',JSON.stringify(res.data()));
+        this.props.meetingAppUserData(res.data());
       })
       th.props.history.push('/setLocation');
     })
@@ -254,18 +258,19 @@ class SetProfile extends Component {
   componentDidMount(){
     const { myId } = this.state;
     const th = this;
-    if(!localStorage.getItem('meetingAppUserId') || !localStorage.getItem('meetingAppUserName')){
-    this.props.history.push(`/`);
-    }
-    this.setState({myId: localStorage.getItem('meetingAppUserId')});
-    this.setState({myName:localStorage.getItem('meetingAppUserName')});
+    console.log(this.props.id ,this.props.name);
+    // if(!localStorage.getItem('meetingAppUserId') || !localStorage.getItem('meetingAppUserName')){
+    // this.props.history.push(`/`);
+    // }
+    // this.setState({myId: localStorage.getItem('meetingAppUserId')});
+    // this.setState({myName:localStorage.getItem('meetingAppUserName')});
 
-    if(localStorage.getItem('meetingAppUserId') && localStorage.getItem('meetingAppUserName') && localStorage.getItem('meetingAppUserData')){
-      var data = JSON.parse(localStorage.getItem('meetingAppUserData'));
-      if(data.imgList && data.nickName){
-        this.props.history.replace('/dashboard');
-      }
-    }
+    // if(localStorage.getItem('meetingAppUserId') && localStorage.getItem('meetingAppUserName') && localStorage.getItem('meetingAppUserData')){
+    //   var data = JSON.parse(localStorage.getItem('meetingAppUserData'));
+    //   if(data.imgList && data.nickName){
+    //     this.props.history.replace('/dashboard');
+    //   }
+    // }
     
     // if(localStorage.getItem('meetingAppUserId') || localStorage.getItem('meetingAppUserName')){
     //  var id = localStorage.getItem('meetingAppUserId');
@@ -334,4 +339,19 @@ let uploadPromiseImgs = resp.map(function (pics, index) {
   }
 }
 
-export default SetProfile;
+const mapStateToProps = (state) => {
+  return{
+    meetingAppUserId : state.authReducers.id,
+    meetingAppUserName : state.authReducers.name,
+    meetingAppUserData : state.authReducers.data
+  }
+}
+const mapDispatchToProps = (dispatch) => {
+  return{
+    setMeetingAppUserId : (id) => dispatch(setMeetingAppUserId(id)),
+    setMeetingAppUserName : (name) => dispatch(setMeetingAppUserName(name)),
+    setMeetingAppUserData : (data) => dispatch(setMeetingAppUserData(data))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SetProfile);
