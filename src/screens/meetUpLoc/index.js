@@ -9,7 +9,8 @@ import swal from 'sweetalert';
 import SimpleList from '../../components/list';
 import PrimarySearchAppBar from '../../components/appBarSearch';
 import DateTimePicker from '../../components/dateTimePicker';
-
+import {connect} from 'react-redux';
+import {addEvent} from '../../redux/actions/authActions';
 
 
 
@@ -66,7 +67,8 @@ getTime = (res) => {
     console.log(forDb);
     db.collection('meetUps').doc().set(forDb).then(res => {
       console.log('added to db');
-      th.props.history.replace("/dashboard");
+      th.props.addEvent(forDb);
+      th.props.history.replace("/addToCalender");
     }).then(res => {
 
 
@@ -185,5 +187,18 @@ getVenues=()=>{
       );
     }
 }
- 
-export default MeetUpLoc;
+
+
+
+const mapStateToProps = (state) => {
+  return{
+    // data : state.authReducers.data
+  }
+  }
+  const mapDispatchToProps = (dispatch) => {
+    return{
+      addEvent : (data) => dispatch(addEvent(data)) 
+    }
+    }
+   
+  export default connect(mapStateToProps, mapDispatchToProps)(MeetUpLoc);

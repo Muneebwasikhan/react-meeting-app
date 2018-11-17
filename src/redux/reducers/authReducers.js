@@ -15,6 +15,9 @@ const reducers = (state = {},action) => {
         case "REMOVE_USER": {
             return {...state,user: action.user}
         }
+        case "EVENT_DATA": {
+            return {...state,data: action.data}
+        }
         default: {
             return state;
         }

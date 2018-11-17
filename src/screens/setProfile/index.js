@@ -249,7 +249,7 @@ class SetProfile extends Component {
       db.collection('user').doc(myId).get().then(res => {
         console.log(res.data());
         localStorage.setItem('meetingAppUserData',JSON.stringify(res.data()));
-        this.props.meetingAppUserData(res.data());
+        this.props.setMeetingAppUserData(res.data());
       })
       th.props.history.push('/setLocation');
     })

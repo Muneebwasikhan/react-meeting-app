@@ -7,6 +7,7 @@ import MeetingScreen from './meetingScreen';
 import MeetUpLoc from './meetUpLoc';
 import GetDirection from './getDirection';
 import GetDir from './getDir';
+import AddToCalender from './addToCalender';
 
 export {
     Login,
@@ -17,5 +18,6 @@ export {
     MeetingScreen,
     MeetUpLoc,
     GetDirection,
-    GetDir
+    GetDir,
+    AddToCalender
 }

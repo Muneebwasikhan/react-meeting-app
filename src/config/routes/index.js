@@ -14,6 +14,7 @@ const Routes = () => (
         <Route exact path="/meetupLocation" component={Screens.MeetUpLoc} />
         <Route exact path="/direction" component={Screens.GetDirection} />
         <Route exact path="/dir" component={Screens.GetDir} />
+        <Route exact path="/addToCalender" component={Screens.AddToCalender} />
       </div>  
     </Router>
 );

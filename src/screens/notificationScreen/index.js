@@ -47,18 +47,20 @@ class NotificationScreen extends Component {
     const th = this;
     var userId = localStorage.getItem("meetingAppUserId");
     db.collection("meetUps")
-      .where("meetUPWithId", "==", userId)
-      // .where("userId", "==", userId)
+    .where("meetUPWithId", "==", userId)
+    // .where("status", "==", "Pending")
       .onSnapshot(res => {
+        this.setState({showNOt : true})
         const arr = [];
        
         res.forEach(res => {
+          if(res.data().status == "Pending"){
     localStorage.setItem("notif","true");
-
-          console.log(res.data());
-          console.log("-----------------------chlgya baiii");
-          arr.push(res.data());
-          this.setState({notificationScr:arr});
+            console.log(res.data());
+            console.log("-----------------------chlgya baiii");
+            arr.push(res.data());
+            this.setState({notificationScr:arr});
+          }
         });
       });
   }
@@ -79,6 +81,22 @@ class NotificationScreen extends Component {
     });
   }
  
+  changeStatusOf=(meetUPWithId,userId,time,status)=>{
+    console.log(meetUPWithId);
+    console.log(userId);
+    console.log(status);
+    db.collection('meetUps').where('meetUPWithId', "==", meetUPWithId).where('userId', "==", userId).where('time', "==", time).get().then(res => {
+      res.forEach(res => {
+        console.log(res.id);
+        console.log(res.data().status);
+  
+        db.collection('meetUps').doc(res.id).set({status: status},{merge: true}).then(res => {
+          console.log(res);
+          this.setState({notificationScr:[]})
+        })
+      })
+    })
+  }
 
 
   render() {
@@ -149,7 +167,10 @@ class NotificationScreen extends Component {
             </div>
             <div className="btnDivNoti">
               <button>Direction</button>
-              <button>Confirm</button>
+              <button onClick={() => {
+                this.changeStatusOf(res.meetUPWithId,res.userId,res.time,"Accept")
+                  console.log(res.meetUPWithId,res.userId,res.time,"Accept")
+              }}>Confirm</button>
             </div>
           </div>
         )

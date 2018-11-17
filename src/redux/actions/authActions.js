@@ -28,8 +28,14 @@ const removeUser = () => {
         type: "UPDATE_USER"
     }
 }
+const addEvent = (data) => {
+    return {
+        type: "EVENT_DATA",
+        data
+    }
+}
 
 
 export {
-    updateUser,removeUser,setMeetingAppUserId,setMeetingAppUserName,setMeetingAppUserData
+    updateUser,addEvent,removeUser,setMeetingAppUserId,setMeetingAppUserName,setMeetingAppUserData
 }
